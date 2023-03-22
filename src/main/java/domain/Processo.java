@@ -1,15 +1,27 @@
 package domain;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "TB_PROCESSO",uniqueConstraints = @UniqueConstraint(name = "NM_PROCESSO",columnNames = "NM_PROCESSO"))
 public class Processo {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_PROCESSO")
+    @SequenceGenerator(name="SQ_PROCESSO", sequenceName = "SQ_PROCESSO")
+    @Column(name = "ID_PROCESSO")
     private long id;
 
+    @Column(name= "NUM_PROCESSO")
     private String numero;
 
+    @Column(name= "DT_PROCESSO")
     private LocalDate dataDeDistribuicao;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
+    @JoinColumn(name = "ID_TIPODEACAO", referencedColumnName = "ID_TIPODEACAO",
+            foreignKey = @ForeignKey(name = "ID_TIPODEACAO", value = ConstraintMode.CONSTRAINT))
     private TipoDeAcao tipoDeAcao;
 
     private Advogado advogado;

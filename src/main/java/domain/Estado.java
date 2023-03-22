@@ -1,11 +1,19 @@
 package domain;
 
-public class Estado {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "TB_ESTADO",uniqueConstraints = @UniqueConstraint(name = "NM_ESTADO",columnNames = "NM_ESTADO"))
+public class Estado {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_ESTADO")
+	@SequenceGenerator(name="SQ_ESTADO", sequenceName = "SQ_ESTADO")
+	@Column(name = "ID_ESTADO")
 	private int id;
 
+	@Column(name= "NM_ESTADO")
 	private String nome;
-
+	@Column(name= "SG_ESTADO")
 	private String sigla;
 
 	public Estado() {

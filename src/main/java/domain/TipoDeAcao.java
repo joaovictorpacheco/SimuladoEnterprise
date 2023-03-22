@@ -1,9 +1,18 @@
 package domain;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "TB_EQUIPAMENTO",uniqueConstraints = @UniqueConstraint(name = "NM_TIPODEACAO",columnNames = "NM_TIPODEACAO"))
 public class TipoDeAcao {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_TIPODEACAO")
+    @SequenceGenerator(name="SQ_TIPODEACAO", sequenceName = "SQ_TIPODEACAO")
+    @Column(name = "ID_TIPODEACAO")
     private long id;
 
+    @Column(name= "NM_TIPODEACAO")
     private String nome;
 
     public TipoDeAcao() {

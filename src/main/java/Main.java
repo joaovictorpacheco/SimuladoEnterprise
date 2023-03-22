@@ -6,7 +6,12 @@ public class Main {
 
     public static void main(String[] args) {
 
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("nome-da-persistence-unit");
 
+        EntityManager em = emf.createEntityManager();
+
+        em.close();
+        emf.close();
 
     }
 }

@@ -1,13 +1,25 @@
 package domain;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "TB_ADVOGADO",uniqueConstraints = @UniqueConstraint(name = "NM_ADVOGADO",columnNames = "NM_ADVOGADO"))
 public class Advogado {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_ADVOGADO")
+    @SequenceGenerator(name="OAB_ADVOGADO", sequenceName = "OAB_ADVOGADO")
     private long id;
 
+    @Column(name= "NM_ADVOGADO")
     private String nome;
 
+    @Column(name= "OAB_ADVOGADO")
     private String numeroOAB;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO",
+        foreignKey = @ForeignKey(name = "ID_ESTADO", value = ConstraintMode.CONSTRAINT))
     private Estado estado;
 
     public Advogado() {
