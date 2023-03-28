@@ -3,7 +3,10 @@ package domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "TB_EQUIPAMENTO",uniqueConstraints = @UniqueConstraint(name = "NM_TIPODEACAO",columnNames = "NM_TIPODEACAO"))
+@Table(name = "TB_EQUIPAMENTO",uniqueConstraints ={
+        @UniqueConstraint(name = "UK_NM_TIPODEACAO",columnNames = "NM_TIPODEACAO")
+    }
+)
 public class TipoDeAcao {
 
     @Id

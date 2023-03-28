@@ -3,7 +3,11 @@ package domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "TB_ESTADO",uniqueConstraints = @UniqueConstraint(name = "NM_ESTADO",columnNames = "NM_ESTADO"))
+@Table(name = "TB_ESTADO",uniqueConstraints = {
+		@UniqueConstraint(name = "UK_NM_ESTADO", columnNames = "NM_ESTADO"),
+		@UniqueConstraint(name = "UK_SG_ESTADO", columnNames = "SG_ESTADO")
+	}
+)
 public class Estado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_ESTADO")

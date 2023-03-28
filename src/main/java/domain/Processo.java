@@ -3,9 +3,12 @@ package domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-
+//Não pode ter processo com o mesmo numero por isso a unique constraint
 @Entity
-@Table(name = "TB_PROCESSO",uniqueConstraints = @UniqueConstraint(name = "NM_PROCESSO",columnNames = "NM_PROCESSO"))
+@Table(name = "TB_PROCESSO",uniqueConstraints = {
+        @UniqueConstraint(name = "UK_NM_PROCESSO",columnNames = "NM_PROCESSO")
+    }
+)
 public class Processo {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_PROCESSO")
@@ -13,19 +16,23 @@ public class Processo {
     @Column(name = "ID_PROCESSO")
     private long id;
 
-    @Column(name= "NUM_PROCESSO")
+    @Column(name= "NR_PROCESSO")
     private String numero;
 
-    @Column(name= "DT_PROCESSO")
+    @Column(name= "DT_DISTRIBUICAO")
     private LocalDate dataDeDistribuicao;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
     @JoinColumn(name = "ID_TIPODEACAO", referencedColumnName = "ID_TIPODEACAO",
-            foreignKey = @ForeignKey(name = "ID_TIPODEACAO", value = ConstraintMode.CONSTRAINT))
+            foreignKey = @ForeignKey(name = "FK_PROC_TP_ACAO", value = ConstraintMode.CONSTRAINT))
     private TipoDeAcao tipoDeAcao;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
+    @JoinColumn(name = "ID_ADVOGADO", referencedColumnName = "ID_ADVOGADO",
+            foreignKey = @ForeignKey(name = "FK_PROC_ADVOGADO", value = ConstraintMode.CONSTRAINT))
     private Advogado advogado;
 
+    @Column(name= "PRO_BONO")
     private boolean proBono;
 
 
